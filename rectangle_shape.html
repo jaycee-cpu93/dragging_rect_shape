@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> MY FIRST RECTANGLE </title>
+    <style>
+        /* .firstClass{   
+        } */
+        #regular{
+            height: 40px;
+            width: 40px;
+            background: blue;
+
+        }
+        /* canvas{
+
+        } */
+    </style>
+</head>
+<body>
+    <div id = "regular"></div>
+    <!-- <div class="firstClass"> </div> -->
+    <!-- <canvas id="myCanvas" width="50" height="50";> </canvas> -->
+</body>   
+<script>
+    let initialLocationX, initialLocationY
+    let regular = document.getElementById("regular");
+
+    function barMove (event){
+        console.log("The difference btw the rect distance")
+        console.log(event.clientX, event.clientY)
+        if(event.buttons === 0){
+            //when you are not moving the mouse the event should stop
+            window.removeEventListener("mousemove", barMove)
+        }
+        else{
+            let finalLocationX = event.clientX
+            let finalLocationY = event.clientY
+            let distanceX = finalLocationX - initialLocationX
+            let distanceY = finalLocationY - initialLocationY 
+            regular.style.width = distanceX + regular.offsetWidth + "px" 
+            regular.style.height = distanceY + regular.offsetHeight + "px"
+            initialLocationX = event.clientX
+            initialLocationY = event.clientY
+        }
+    }
+    
+    regular.addEventListener("mousedown", function(event){
+        console.log(event.clientX, event.clientY)
+        if(event.button === 0){
+            initialLocationX = event.clientX
+            initialLocationY = event.clientY
+            window.addEventListener("mousemove", barMove)
+        }
+        event.preventDefault()
+    })
+</script>
+</html>
